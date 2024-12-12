@@ -146,14 +146,11 @@ class Specfit:
         data = [line.split() for line in lines]
         for row in data:
             if len(row) > 0 and row[0] == '#':
-                file_event = "{}{}{}_{}{}{}".format(
-                                                str(row[1]).zfill(2) if int(row[1]) < 10 else str(row[1]),
-                                                str(row[2]).zfill(2) if int(row[2]) < 10 else str(row[2]),
-                                                str(row[3]).zfill(2) if int(row[3]) < 10 else str(row[3]),
-                                                str(row[4]).zfill(2) if int(row[4]) < 10 else str(row[4]),
-                                                str(row[5]).zfill(2) if int(row[5]) < 10 else str(row[5]),
-                                                str(int(float(row[6]))).zfill(2) if int(row[6]) < 10 else str(int(float(row[6])))
-                                            )
+                file_event = "{}{}{}_{}{}{}".format(row[1], row[2].zfill(2) if int(row[2])<10 else row[2],
+                                                    row[3].zfill(2) if int(row[3])<10 else row[3], 
+                                                    row[4].zfill(2) if int(row[4])<10 else row[4], 
+                                                    row[5].zfill(2) if int(row[5])<10 else row[5], 
+                                                    str(int(float(row[6]))).zfill(2) if int(float(row[6]))<10 else str(int(float(row[6]))))
                 event_found=True
                 event[file_event] = {}
                 event[file_event].update({'num_event': int(row[-1])})
@@ -279,8 +276,7 @@ class Specfit:
                                     ta_real = data_event[event]['mmss']
                                     ta_sta = ta_real + (float(_data[1]) / 60)
                                                                 
-                                    name = f"{data_event[event]['num_event']}_{channel[-1]}_{data_event[event]['yymmdd']}_
-                                             {data_event[event]['hh']}{round(data_event[event]['mmss'], 3)}_{sta}"
+                                    name = f"{data_event[event]['num_event']}_{channel[-1]}_{data_event[event]['yymmdd']}_{data_event[event]['hh']}{round(data_event[event]['mmss'], 3)}_{sta}"
                                     first, last = None, None
                                     for i in range(len(cs_range) - 1):
                                         if (t_min[i]-1)%60+1 <= ta_sta and (t_min[i + 1]-1)%60+1 >= ta_sta:
